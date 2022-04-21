@@ -1,0 +1,35 @@
+{
+  "name": "DictLookup",
+  "description": "Finger blast people in the bomb game",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://jklm.fun/*",
+        "https://*/*"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "/src/dict_lookup.js"
+      ]
+    }
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "/src/popup.html",
+    "default_icon": {
+      "128": "yagaboo128.png"
+    }
+  },
+  "icons": {
+    "128": "yagaboo128.png"
+  }
+}
