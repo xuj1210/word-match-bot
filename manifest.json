@@ -1,6 +1,6 @@
 {
   "name": "DictLookup",
-  "description": "Finger blast people in the bomb game",
+  "description": "Automatically type words for the jklm.fun game",
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": [
@@ -11,8 +11,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://jklm.fun/*",
-        "https://*/*"
+        "https://jklm.fun/*"
       ],
       "run_at": "document_start",
       "js": [
@@ -21,7 +20,7 @@
     }
   ],
   "host_permissions": [
-    "<all_urls>"
+    "https://jklm.fun/*"
   ],
   "action": {
     "default_popup": "/src/popup.html",
