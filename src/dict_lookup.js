@@ -1,28 +1,83 @@
 console.log('loaded');
 
-fetch('words_alpha.txt')
-    .then(res => {
-        console.log(res);
-        res.text();
-    })
-    .then(text => {
-        const dictArr = text.split(/\r\n/);
-        const testPat = "zebra";
-        searchDict(testPat.split(""), dictArr);
-    });
+async function wrapper() {
+    const dictArr =
+        await fetch('https://raw.githubusercontent.com/xuj1210/word-match-bot/main/src/words_alpha.txt')
+            .then(res => {
+                return res.text();
+            })
+            .then(text => {
+                return text.split(/\n/);
+            });
+
+    const chatBox = document.getElementsByClassName('log')[0];
+    const textArea = document.getElementsByTagName('textarea')[0];
+    console.log(textArea);
+
+    function createResponse(ans) {
+        const retNode = document.createElement('div');
+        retNode.innerHTML = `<span class="time">WIN:O'CLOCK</span><a class="author guest" data-peer-id="0" href="#" data-tooltip-text="Guest(0)">😎</a>: <span class="text">${ans}</span>`;
+        chatBox.appendChild(retNode);
+    }
+
+
+
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyUnPressed);
+
+    function keyUnPressed(e) {
+        if (e.key === "\\") {
+            textArea.value = "";
+        }
+    }
+
+    function keyPressed(e) {
+        if (e.key === "\\") {
+            // const textAreaWord = textArea.value;
+
+            const word = searchDict(textArea.value.split(""), dictArr);
+            createResponse(word);
+            setClipboard(word);
+        }
+    }
+
+}
+
+wrapper();
+
+
+
+function setClipboard(text) {
+    const type = "text/plain";
+    const blob = new Blob([text], { type });
+    const data = [new ClipboardItem({ [type]: blob })]
+
+    navigator.clipboard.write(data);
+}
+
+
+// const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+// async function getIframe() {
+//     await sleep(5000);
+//     const classSearch = "game";
+//     console.log(classSearch);
+
+//     const syllableNode = document.getElementsByClassName(classSearch)[0].children[0];
+//     console.log(syllableNode.contentWindow.document);
+// }
+
+// getIframe();
 
 
 function searchDict(patternArr, dict) {
     for (const word of dict) {
         const match = search(word.split(""), patternArr);
         if (match) {
-            console.log(match);
-            break;
+            return match;
         }
     }
 }
-
-
 
 const NO_OF_CHARS = 256;
 
