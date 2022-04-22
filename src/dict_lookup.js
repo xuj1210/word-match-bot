@@ -1,6 +1,6 @@
 console.log('loaded');
 
-const dictUsed = "https://raw.githubusercontent.com/xuj1210/word-match-bot/main/src/wordlist-10000.txt"
+const dictUsed = "https://raw.githubusercontent.com/xuj1210/word-match-bot/main/src/merged.txt"
 
 async function wrapper() {
     const dictArr =
