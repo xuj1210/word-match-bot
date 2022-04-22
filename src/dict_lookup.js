@@ -1,8 +1,10 @@
 console.log('loaded');
 
+const dictUsed = "https://raw.githubusercontent.com/xuj1210/word-match-bot/main/src/wordlist-10000.txt"
+
 async function wrapper() {
     const dictArr =
-        await fetch('https://raw.githubusercontent.com/xuj1210/word-match-bot/main/src/words_alpha.txt')
+        await fetch(dictUsed)
             .then(res => {
                 return res.text();
             })
